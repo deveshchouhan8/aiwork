@@ -5,9 +5,13 @@ import { searchSimilarDocuments } from "@/lib/rag/vectorStore";
 
 export const runtime = "nodejs";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+// const openai = new OpenAI({
+//   apiKey: process.env.OPENAI_API_KEY,
+// });
+const apiKey = process.env.OPENAI_API_KEY;
+const openai = apiKey
+  ? new OpenAI({ apiKey })
+  : null;
 
 export async function POST(request: Request) {
   try {
@@ -23,7 +27,12 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
-
+    if(!openai) {
+        return NextResponse.json(
+          { error: "OpenAI API key is not configured." },
+          { status: 503 }
+        );
+      }
     const result = await openai.embeddings.create({
       model: "text-embedding-3-small",
       input: question,
