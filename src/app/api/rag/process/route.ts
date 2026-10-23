@@ -5,10 +5,11 @@ import { addDocuments } from "@/lib/rag/vectorStore";
 
 export const runtime = "nodejs";
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
 
+const apiKey = process.env.OPENAI_API_KEY;
+const openai = apiKey
+  ? new OpenAI({ apiKey })
+  : null;
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
 const CHUNK_SIZE = 1000;
 const CHUNK_OVERLAP = 150;
@@ -107,6 +108,12 @@ export async function POST(request: Request) {
       }
 
       const chunks = splitIntoChunks(text);
+      if(!openai) {
+        return NextResponse.json(
+          { error: "OpenAI API key is not configured." },
+          { status: 503 }
+        );
+      }
       const embeddingResult = await openai.embeddings.create({
         model: "text-embedding-3-small",
         input: chunks,
