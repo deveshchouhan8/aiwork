@@ -69,7 +69,7 @@ export default function ReactPage() {
         console.log("start");
         const now = Date.now();
          console.log(now+"----"+lastCall.current+" >= "+200);
-        if (now - lastCall.current >= 200) {
+        if(now - lastCall.current >= 200) {
           lastCall.current = now;
           setScrollY(window.scrollY);
         }
@@ -109,9 +109,7 @@ export default function ReactPage() {
           </ul>
 
         <div className="container">
-          <div className="w-full mt-8 p-6 bg-white">
-
-         
+          <div className="w-full mt-8 p-6 bg-white">         
           <p>Lorem ipsum dolor sit amet,{scrollY} consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.

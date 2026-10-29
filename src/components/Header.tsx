@@ -10,7 +10,7 @@ export default function Header() {
   const links = [
     { label: "LLM Chat", href: "/" },
     { label: "RAG Assistant", href: "/rag" },
-    // { label: "Reactjs", href: "/reactjs" },
+    { label: "Reactjs", href: "/reactjs" },
   ];
 
   return (
