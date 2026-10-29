@@ -26,61 +26,48 @@ export default function ReactPage() {
           setIsLoading(false);
          },0)
           return;
-        }
-       
-     // const controller = new AbortController();
-
+        }       
         const timer = setTimeout(async ()=>{
           setIsLoading(true);
           setError("");
           try{
-              const response = await fetch( 'https://jsonplaceholder.typicode.com/users?utm_source=chatgpt.com');
-            // const response = await fetch( 'https://jsonplaceholder.typicode.com/u');
-
+              const response = await fetch( 'https://jsonplaceholder.typicode.com/users?utm_source=chatgpt.com');              
               if(!response.ok){
                 throw new Error("Search request failed");
               }
-              const data = await response.json();
-
+              const data = await response.json();              
               setResults(data);
-
-          }
+            }
           catch(error: unknown){
             if(error instanceof Error && error.name === "AbortError"){
               return;
             }
             setError(error instanceof Error ? error.message : "Something went wrong");
           } 
-          finally {
-            //if (!controller.signal.aborted) {
+          finally {          
               setIsLoading(false);
-            //}
-          }
-
+            }
         },300)
 
           return () =>{
-            clearTimeout(timer);
-            //controller.abort();
+            clearTimeout(timer);          
           };
 
     }, [query])
 
     useEffect(()=>{
       function handleScroll(): void {
-        console.log("start");
-        const now = Date.now();      
+        const now = Date.now();   
         if(now - lastCall.current >= 200) {
           lastCall.current = now;
           setScrollY(window.scrollY);
         }
       }
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-        console.log("stop");
-      window.removeEventListener("scroll", handleScroll);
-    };
+      window.addEventListener("scroll", handleScroll);
+      return () => {
+          console.log("stop");
+          window.removeEventListener("scroll", handleScroll);
+      };
     },[])
 
   const filteredData = results.filter((item)=>{
