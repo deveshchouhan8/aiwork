@@ -21,10 +21,10 @@ export default function ReactPage() {
       
        if(!query.trim()){
           setTimeout(() => {
-            setResults([]);
-            setError("");
-            setIsLoading(false);
-          },0)
+          setResults([]);
+          setError("");
+          setIsLoading(false);
+         },0)
           return;
         }       
         const timer = setTimeout(async ()=>{
