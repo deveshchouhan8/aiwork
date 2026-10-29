@@ -1,6 +1,6 @@
 
 "use client";
-import { useEffect, useState,useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 
 type SearchResult = {
    id: number;
@@ -20,9 +20,11 @@ export default function ReactPage() {
     useEffect(()=>{
       
        if(!query.trim()){
+         setTimeout(() => {
           setResults([]);
           setError("");
           setIsLoading(false);
+         },0)
           return;
         }
        
@@ -67,8 +69,7 @@ export default function ReactPage() {
     useEffect(()=>{
       function handleScroll(): void {
         console.log("start");
-        const now = Date.now();
-         console.log(now+"----"+lastCall.current+" >= "+200);
+        const now = Date.now();      
         if(now - lastCall.current >= 200) {
           lastCall.current = now;
           setScrollY(window.scrollY);
