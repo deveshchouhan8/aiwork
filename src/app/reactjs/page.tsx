@@ -20,11 +20,11 @@ export default function ReactPage() {
     useEffect(()=>{
       
        if(!query.trim()){
-         setTimeout(() => {
-          setResults([]);
-          setError("");
-          setIsLoading(false);
-         },0)
+          setTimeout(() => {
+            setResults([]);
+            setError("");
+            setIsLoading(false);
+          },0)
           return;
         }       
         const timer = setTimeout(async ()=>{
